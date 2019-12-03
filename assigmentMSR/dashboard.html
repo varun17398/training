@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+        th,td {
+            padding:10px;
+            border:none;
+        }
+        table{
+            border: 1px solid;
+            border-radius: 10px;
+        }
+        </style>
+    </head>
+
+
+<body>
+
+    <h1>My DashBoard</h1>
+
+    <div id="tablediv" style="margin-left:450px;">
+        <table style="border-collapse: collapse;" cellspacing="2" id="tabledetails">
+            <tr style="background:cyan">
+                <th>ID</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Class</th>
+                <th>Year</th>
+                <th>City</th>
+                <th>Country</th>
+                <th></th>
+                <th></th>
+            </tr>
+            <!-- <tr>
+                <td>1</td>
+                <td>Varun</td>
+                <td>sv@gmail.com</td>
+                <td>10th</td>
+                <td>2015</td>
+                <td>NZB</td>
+                <td>India</td>
+                <td><button onclick="editButton(event)">Edit</button></td>
+                <td><button><span>Delete</span></button></td>
+            </tr> -->
+        </table>
+    </div>
+
+    <div style="padding: 20px;width:450px;text-align: center;background: #d1d4d6;color: rgb(5, 5, 5);font-size: 15px;margin-top:10px;margin-left:450px;" id="studentdiv">
+        <lable style="color:rgb(3, 3, 3)">Student ID</lable>   <input style="margin-left:20px" type="text" name="sid" id="sid"/>
+        <br><br><br>
+        <lable style="color:rgb(3, 3, 3)">Name</lable>   <input style="margin-left:20px" type="text" name="sname" id="sname"/>
+        <br><br> <br>
+        <lable style="color:rgb(3, 3, 3)">Email</lable>   <input style="margin-left:20px" type="email" name="semail" id="semail"/>
+        <br><br><br>
+        <lable style="color:rgb(3, 3, 3)">Class</lable>   <input style="margin-left:20px" type="text" name="sclass" id="sclass"/>
+        <br><br><br>
+        <lable style="color:rgb(3, 3, 3)">Year</lable>   <input style="margin-left:20px" type="text" name="syear" id="syear"/>
+        <br><br><br>
+        <lable style="color:rgb(3, 3, 3)">City</lable>   <input style="margin-left:20px" type="text" name="scity" id="scity"/>
+        <br><br><br>
+        <lable style="color:rgb(3, 3, 3)">Country</lable>   <input style="margin-left:20px" type="text" name="scountry" id="scountry"/>
+        <br><br><br>
+        <button style="margin-left:20px" onclick="saveButton()">Save</button>    <button style="margin-left:20px" onclick="clearAll()">Clear</button>
+    </div>
+</body>
+
+<script>
+    function remove() {
+        console.log(this.parentNode.parentNode.parentNode.parentNode)
+        this.parentNode.parentNode.parentNode.parentNode.removeChild(this.parentNode.parentNode.parentNode);
+    }
+
+    function editButton(e) {
+        var e= document.getElementById(e.currentTarget.parentNode.parentNode.id)
+        console.log(e.childNodes)
+        document.getElementById("sid").value = e.childNodes[0].textContent
+        document.getElementById("sname").value = e.childNodes[1].textContent
+        document.getElementById("semail").value = e.childNodes[2].textContent
+        document.getElementById("sclass").value = e.childNodes[3].textContent
+        document.getElementById("syear").value = e.childNodes[4].textContent
+        document.getElementById("scity").value = e.childNodes[5].textContent
+        document.getElementById("scountry").value = e.childNodes[6].textContent
+
+    }
+
+    function clearAll() {
+        document.getElementById("sid").value = ""
+        document.getElementById("sname").value = ""
+        document.getElementById("semail").value = ""
+        document.getElementById("sclass").value = ""
+        document.getElementById("syear").value = ""
+        document.getElementById("scity").value = ""
+        document.getElementById("scountry").value = ""
+    }
+
+
+    function saveButton() {
+        var sid = document.getElementById("sid").value
+        var reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+        if(document.getElementById(sid)){
+            alert("You can not have multiple entries with same id")
+            return
+        }
+        var sname = document.getElementById("sname").value
+        console.log("name::::::",sname);
+        var semail = document.getElementById("semail").value
+        if(reg.test(semail) == false){
+            alert("Enter a valid email address")
+            return
+        }
+        var sclass = document.getElementById("sclass").value
+        var syear = document.getElementById("syear").value
+        var scity = document.getElementById("scity").value
+        var scountry = document.getElementById("scountry").value
+        var table = document.getElementById("tabledetails");
+        var row = table.insertRow();
+        row.id = sid
+        var cell1 = row.insertCell(0);
+        var cell2 = row.insertCell(1);
+        var cell3 = row.insertCell(2);
+        var cell4 = row.insertCell(3);
+        var cell5 = row.insertCell(4);
+        var cell6 = row.insertCell(5);
+        var cell7 = row.insertCell(6);
+        var cell8 = row.insertCell(7);
+        var cell9 = row.insertCell(8);
+
+        cell1.innerHTML = sid;
+        cell2.innerHTML = sname;
+        cell3.innerHTML = semail;
+        cell4.innerHTML = sclass;
+        cell5.innerHTML = syear;
+        cell6.innerHTML = scity;
+        cell7.innerHTML = scountry;
+        cell8.innerHTML = `<button onclick="editButton(event)">Edit</button>`;
+        cell9.innerHTML = "<button><span>Delete</span></button>";
+
+        // var ele = '<tr><td>'+sid+'</td><td>'+sname+'</td><td>'+semail+'</td><td>'+sclass+'</td><td>'+sclass+'</td><td>'+syear+'</td><td>'+scity+'</td><td>'+scountry+'</td><td><button>Edit</button></td><td><button><span>Delete</span></button</td></tr>'
+        // document.getElementById("tabledetails").childNodes[1].append('<tr><td>'+sid+'</td><td>'+sname+'</td><td>'+semail+'</td><td>'+sclass+'</td><td>'+sclass+'</td><td>'+syear+'</td><td>'+scity+'</td><td>'+scountry+'</td><td><button>Edit</button></td><td><button><span>Delete</span></button</td></tr>')
+        console.log(document.getElementById("tabledetails").childNodes[1].childNodes)
+        var lis = document.querySelectorAll('tr');
+        var button = document.querySelectorAll('span');
+
+        for (var i = 0, len = lis.length-1; i < len; i++) {
+            button[i].addEventListener('click', remove, false);
+        }
+    }
+</script>
+
+</html>
