@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+
+    <div style="padding: 20px;text-align: center;background: #1abc9c;color: white;font-size: 30px;" id="header">
+        <h1>Welcome to the page</h1>
+    </div>
+
+    <div style="padding: 20px;text-align: center;background: #a09937;color: white;font-size: 20px;" id="logindiv">
+        <p>Login</p>
+        <lable style="color:#FFFFFF">Username</lable>    <input type="email" name="uname" id="uname"/>
+            <br>
+            <br>
+            <br>
+        <label style="color:#FFFFFF">Password</label>    <input type="password" name="password" id="password"/>
+            <br>
+            <br>
+            <br>
+        <button style="margin-left:20px" onclick="checkLogin()">Login</button>    
+    </div>
+
+    <div style="padding: 20px;text-align: center;background: #1d1abc;color: white;font-size: 20px;display:none" id="registerdiv">
+        <p>Register</p>
+        <lable style="color:#FFFFFF">First Name*</lable>    <input type="text" name="fname" id="fname"/>
+            <br>
+            <br>
+            <br>
+        <lable style="color:#FFFFFF">Middle Name</lable>    <input type="text" name="mname" id="mname"/>
+            <br>
+            <br>
+            <br>
+        <lable style="color:#FFFFFF">Last Name*</lable>    <input type="text" name="lname" id="lname"/>
+            <br>
+            <br>
+            <br>
+        <lable style="color:#FFFFFF">Email*</lable>    <input type="email" name="email" id="email"/>
+            <br>
+            <br>
+            <br>
+        <lable style="color:#FFFFFF">Mobile</lable>    <input type="text" name="mnum" id="mnum"/>
+            <br>
+            <br>
+            <br>
+        <label style="color:#FFFFFF">Password*</label>    <input type="password" name="password" id="newpassword"/>
+            <br>
+            <br>
+            <br>
+        <label style="color:#FFFFFF">Confirm Password*</label>     <input type="password" name="cnfpassword" id="cnfpassword"/>
+        <br>
+        <br>
+        <br>
+        <button style="margin-left:20px" onclick="newRegistration()">Register</button>   <label style="margin-left:20px;">Existing User</label><button style="margin-left:5px;" onclick="backLogin()">Login</button>
+    </div>
+
+    <div style="padding:100px;text-align: center;background: #D3D3D3;color: rgb(7, 7, 7);font-size: 20px;">
+        <label>New User</label>   <button style="margin-left:20px" onclick="registration()">Register Here</button>    
+    </div>
+
+
+</body>
+
+<script>
+        var userList=[{"username":"user@gmail.com","password":"123456"}]
+        function checkLogin(){
+            var uname = document.getElementById("uname").value
+            var pwd = document.getElementById("password").value
+            var reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+            if(reg.test(uname) == false){
+            alert("Enter a valid email address")
+            return
+            }
+            if(uname === ""){
+                alert("Please enter username")
+                return
+            }
+            if(pwd === ""){
+                alert("Please enter correct password")
+                return
+            }
+            userList.forEach(data=>{
+                if(uname === data.username && pwd === data.password) {
+                    window.location="./dashboard.html"
+                }
+            })
+        }
+        
+        function registration() {
+            document.getElementById("logindiv").style.display="none";
+            document.getElementById("registerdiv").style.display="block";
+        }
+
+        function backLogin() {
+            document.getElementById("logindiv").style.display="block";
+            document.getElementById("registerdiv").style.display="none";
+        }
+
+        function newRegistration() {
+            var fname = document.getElementById("fname").value
+            var mname = document.getElementById("mname").value
+            var lname = document.getElementById("lname").value
+            var email = document.getElementById("email").value
+            var reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+            if(reg.test(email) == false){
+            alert("Enter a valid email address")
+            return
+            }
+            var mnum = document.getElementById("mnum").value
+            var pwd = document.getElementById("newpassword").value
+            var cnfpwd = document.getElementById("cnfpassword").value
+            if(fname === "" || lname === "" || email === "" || pwd === "" || cnfpwd === ""){
+                alert("Please fill in all the fields with * mark")
+            }
+            else if(pwd !== cnfpwd){
+                alert("Please enter confirm password same as password")
+            }
+            else {
+                alert("Registration Successful")
+                var tempjson = {
+                    username: email,
+                    password: pwd
+                }
+                userList.push(tempjson)
+                document.getElementById("logindiv").style.display = "block";
+                document.getElementById("registerdiv").style.display = "none"
+            }
+        }
+</script>
+
+</html>
